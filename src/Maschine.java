@@ -105,10 +105,7 @@ public class Maschine extends Actor
 	@Override
 	public boolean isFull()
 	{
-		if (wip != null)
-			return true;
-		else
-			return false;
+		return wip != null;
 	}
 
 	@Override
