@@ -1,0 +1,7 @@
+
+
+public enum MachineState
+{
+	PROCESSING, IDLE, SETUP, BREAKDOWN, WAITINGSTORAGE;
+	
+}
