@@ -1,6 +1,6 @@
 
 
-public class Maschine extends Actor
+public class Machine extends Actor
 {
 	// Statics
 	static int nextMachineNumber = 1;
@@ -24,7 +24,7 @@ public class Maschine extends Actor
 	DiscreteEventContainer stat = new DiscreteEventContainer(Utils.getEnumNames(MachineState.class), 10);
 
 	// KONSTRUKTOR
-	public Maschine(int procTime)
+	public Machine(int procTime)
 	{
 		this.sim = Simulation.getSimulation();
 		sim.machines.add(this);

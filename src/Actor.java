@@ -3,7 +3,6 @@ import java.util.List;
 
 public abstract class Actor
 {
-	//just testing git
 	Simulation sim;
 	List<Actor> targets = new ArrayList<Actor>();
 	List<Item> storedItems = new ArrayList<Item>();
@@ -44,7 +43,52 @@ public abstract class Actor
 
 	private void sendToLowestStock()
 	{
-		throw new Error("Not implemented");
+		//In case of one target
+		/*if(targets.size() == 1)
+			sendItemsToFirstPossibility();*/
+
+		boolean sentItem = true;
+		while(sentItem) {
+			sentItem = false;
+			//In case of lowest/second are same we need the third lowest stock
+			//check the lowest/second stock niveau
+			Integer lowest = 0, secLowest = 0;
+			for (Actor a : targets) {
+				if (lowest == null || a.storedItems.size() < lowest)
+					lowest = a.storedItems.size();
+				if (secLowest == null || (a.storedItems.size() < secLowest && a.storedItems.size() > lowest))
+					secLowest = a.storedItems.size();
+			}
+
+			//if lowest/second are same => all the same => even distribution of items
+			if (lowest == secLowest)
+				sendItemsEvenDistributed();
+			else {
+				int numberItemsAdded = secLowest - lowest;
+
+				List<Actor> lowestStock = new ArrayList<>();
+				//Add all Actors that have the same and lowest stock level
+				for (Actor a : targets) {
+					if (a.storedItems.size() == lowest)
+						lowestStock.add(a);
+				}
+
+				//Fill Actors till second lowest
+				for (int i = 0; i <= numberItemsAdded; i++) {
+					for (Actor a : lowestStock) {
+						if (canReceiveItem(a))
+						{
+							transferItem(a, storedItems.get(findIndexAccordingToStockPolicy(a)));
+							sentItem = true;
+						}
+
+					}
+				}
+
+
+			}
+		}
+
 	}
 
 	private void accordingToTable()
@@ -100,10 +144,10 @@ public abstract class Actor
 
 	int chooseIndexWhichMinimizesSetupTime(Actor a)
 	{
-		if (!(a instanceof Maschine))
+		if (!(a instanceof Machine))
 			return 0;
 
-		Maschine ma = (Maschine) a;
+		Machine ma = (Machine) a;
 		int lastProcessedType;
 		if (ma.getlastProcessedItemType() == null)
 			return 0;

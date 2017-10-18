@@ -18,7 +18,7 @@ public class Simulation implements Runnable
 	List<Actor> actors;
 	List<Source> sources = new ArrayList<Source>();
 	List<Stock> stocks = new ArrayList<Stock>();
-	List<Maschine> machines = new ArrayList<Maschine>();
+	List<Machine> machines = new ArrayList<Machine>();
 	List<Sink> sinks = new ArrayList<Sink>();
 	boolean backorderFeeConsidered = false;
 	Integer maxTime;
@@ -66,10 +66,22 @@ public class Simulation implements Runnable
 		actors = new ArrayList<Actor>();
 		Item.itemId = 0;
 
+	/*	Source src = new Source(2, true, FindNextTargetPolicy.evenDistributed, FindNextItemPolicy.FIFO);
+		Stock st = new Stock(100, 0, FindNextTargetPolicy.evenDistributed, FindNextItemPolicy.MinSetupTime);
+		Machine m = new Machine(2);
+		Machine m2 = new Machine(2);
+		Sink snk = new Sink();
+
+		src.assignTarget(st);
+		st.assignTarget(m);
+		st.assignTarget(m2);
+		m.assignTarget(snk);
+		m2.assignTarget(snk);*/
+
 		Source src = new Source(2, true, FindNextTargetPolicy.evenDistributed, FindNextItemPolicy.FIFO);
 		Stock st = new Stock(100, 0, FindNextTargetPolicy.evenDistributed, FindNextItemPolicy.MinSetupTime);
-		Maschine m = new Maschine(2);
-		Maschine m2 = new Maschine(2);
+		Machine m = new Machine(2);
+		Machine m2 = new Machine(2);
 		Sink snk = new Sink();
 
 		src.assignTarget(st);
@@ -77,6 +89,9 @@ public class Simulation implements Runnable
 		st.assignTarget(m2);
 		m.assignTarget(snk);
 		m2.assignTarget(snk);
+
+
+
 
 		maxTime = 20;
 
@@ -92,7 +107,7 @@ public class Simulation implements Runnable
 		transportationPhase();
 
 		// Working phase with Machines
-		for (Maschine m : machines)
+		for (Machine m : machines)
 			m.work();
 
 		// Statistic phase with all Actors

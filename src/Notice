@@ -1,11 +1,11 @@
 Notice
 
--> implement sendToLowestStock()
+-> test and finish sendToLowestStock()
 
 -> implement exactDueDate to send item only to sink if needed
 	-> implement storage cost
 	-> implement general possibility for actors to reject items (like the sink, if the item comes to early)
 
--> Try VÖST pattern
+-> Try Vï¿½ST pattern
 
 -> Actors have a representation in GUI

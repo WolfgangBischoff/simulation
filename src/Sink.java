@@ -1,7 +1,7 @@
 
 public class Sink extends Actor
 {
-	Maschine assignedMaschine;
+	Machine assignedMachine;
 	int numItems;
 	
 	public Sink()
