@@ -3,6 +3,7 @@ import java.util.List;
 
 public abstract class Actor
 {
+	//just testing git
 	Simulation sim;
 	List<Actor> targets = new ArrayList<Actor>();
 	List<Item> storedItems = new ArrayList<Item>();
