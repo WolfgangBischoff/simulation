@@ -1,6 +1,7 @@
 Notice
 
 -> test and finish sendToLowestStock()
+    -> Exception if both stock == 0; same level; three stocks
 
 -> implement exactDueDate to send item only to sink if needed
 	-> implement storage cost
@@ -8,4 +9,5 @@ Notice
 
 -> Try V�ST pattern
 
--> Actors have a representation in GUI
+-> Delete GUI of Game
+

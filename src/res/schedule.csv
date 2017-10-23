@@ -1,6 +1,3 @@
 # Sorted order arrival schedule
 # arrival, type, quantity, dueDate, value(notUsedYet);
-1, 1, 1, 10, 5;
-1, 0, 1, 10, 5;
-1, 1, 10, 10, 5;
-1, 0, 5, 10, 5;
+

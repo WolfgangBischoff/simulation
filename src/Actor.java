@@ -44,24 +44,31 @@ public abstract class Actor
 	private void sendToLowestStock()
 	{
 		//In case of one target
-		/*if(targets.size() == 1)
-			sendItemsToFirstPossibility();*/
+		if(targets.size() == 1)
+			sendItemsToFirstPossibility();
 
 		boolean sentItem = true;
 		while(sentItem) {
 			sentItem = false;
 			//In case of lowest/second are same we need the third lowest stock
 			//check the lowest/second stock niveau
-			Integer lowest = 0, secLowest = 0;
+			Integer lowest = null, secLowest = null;
 			for (Actor a : targets) {
+			    //System.out.println(a + "Stock"  + a.storedItems.size());
 				if (lowest == null || a.storedItems.size() < lowest)
-					lowest = a.storedItems.size();
+                {
+                    lowest = a.storedItems.size();continue;
+                }
+                //System.out.println("Lowest: " + lowest + " Second" + secLowest);
 				if (secLowest == null || (a.storedItems.size() < secLowest && a.storedItems.size() > lowest))
 					secLowest = a.storedItems.size();
-			}
 
-			//if lowest/second are same => all the same => even distribution of items
-			if (lowest == secLowest)
+			}
+            System.out.println("Lowest: " + lowest + " Second" + secLowest);
+
+
+			//if we found no second lowest, all stock have the same stock level
+			if (secLowest == null)
 				sendItemsEvenDistributed();
 			else {
 				int numberItemsAdded = secLowest - lowest;
