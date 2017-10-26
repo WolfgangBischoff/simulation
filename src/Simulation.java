@@ -63,36 +63,25 @@ public class Simulation implements Runnable
 		time = 1;
 		cash = 0;
 		orders = new Orderbook(this);
-		actors = new ArrayList<Actor>();
+		actors = new ArrayList<>();
 		Item.itemId = 0;
-
-	/*	Source src = new Source(2, true, FindNextTargetPolicy.evenDistributed, FindNextItemPolicy.FIFO);
-		Stock st = new Stock(100, 0, FindNextTargetPolicy.evenDistributed, FindNextItemPolicy.MinSetupTime);
-		Machine m = new Machine(2);
-		Machine m2 = new Machine(2);
-		Sink snk = new Sink();
-
-		src.assignTarget(st);
-		st.assignTarget(m);
-		st.assignTarget(m2);
-		m.assignTarget(snk);
-		m2.assignTarget(snk);*/
 
 		Source src = new Source(2, true, FindNextTargetPolicy.sendToFirstPossibility, FindNextItemPolicy.FIFO);
 		Stock st = new Stock(100, 30, FindNextTargetPolicy.lowestStock, FindNextItemPolicy.FIFO);
-		Stock st2 = new Stock(100, 5, FindNextTargetPolicy.evenDistributed, FindNextItemPolicy.FIFO);
-        Stock st3 = new Stock(100, 10, FindNextTargetPolicy.evenDistributed, FindNextItemPolicy.FIFO);
-        //Stock st4 = new Stock(100, 15, FindNextTargetPolicy.evenDistributed, FindNextItemPolicy.FIFO);
+		Stock st2 = new Stock(100, 0, FindNextTargetPolicy.evenDistributed, FindNextItemPolicy.FIFO);
+        Stock st3 = new Stock(100, 0, FindNextTargetPolicy.evenDistributed, FindNextItemPolicy.FIFO);
+
 		Machine m = new Machine(2);
 		Sink snk = new Sink();
 
 		src.assignTarget(st);
 		st.assignTarget(st2);
 		st.assignTarget(st3);
-		//st.assignTarget(st4);
+		st.assignTarget(m);
+
 		st2.assignTarget(m);
 		st3.assignTarget(m);
-		//st4.assignTarget(m);
+
 		m.assignTarget(snk);
 
 

@@ -164,7 +164,7 @@ public class Source extends Actor
 	public void work()
 	{
 		if (isDeterministic)
-			spawnDeterministic("src/res/schedule.csv", sim.getCurTime());
+			spawnDeterministic("/home/wolfgang/Documents/simulation/simulation/src/res/schedule.csv", sim.getCurTime());//works with ubuntu
 		else
 			trySpawn();
 

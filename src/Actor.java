@@ -37,7 +37,7 @@ public abstract class Actor
 			accordingToTable();
 			break;
 		default:
-			break;
+			throw new Error("No nextTargetPolicy");
 		}
 	}
 
@@ -46,42 +46,42 @@ public abstract class Actor
 		//In case of one target
 		if(targets.size() == 1)
 			sendItemsToFirstPossibility();
+		else{
 
 		boolean sentItem = true;
 		while(sentItem) {
 			sentItem = false;
-			//In case of lowest/second are same we need the third lowest stock
-			//check the lowest/second stock niveau
+			//check whats the lowest and second lowest stock level
 			Integer lowest = null, secLowest = null;
 			for (Actor a : targets) {
-			    //System.out.println(a + "Stock"  + a.storedItems.size());
+			    //System.out.println(a);
 				if (lowest == null || a.storedItems.size() < lowest)
                 {
                     lowest = a.storedItems.size();continue;
                 }
-                //System.out.println("Lowest: " + lowest + " Second" + secLowest);
+                //System.out.println("Lowest: " + lowest + " Second " + secLowest);
 				if (secLowest == null || (a.storedItems.size() < secLowest && a.storedItems.size() > lowest))
 					secLowest = a.storedItems.size();
 
 			}
-            System.out.println("Lowest: " + lowest + " Second" + secLowest);
+            //System.out.println("Lowest: " + lowest + " Second2 " + secLowest);
 
 
-			//if we found no second lowest, all stock have the same stock level
-			if (secLowest == null)
+			//if the inventory of the first actor is the same as the last actor, all actors have the same stock
+			if (secLowest == lowest)
 				sendItemsEvenDistributed();
 			else {
-				int numberItemsAdded = secLowest - lowest;
+				int maxNumberItemsAdded = secLowest - lowest;
 
+				//Add all actors that have the same lowest stock
 				List<Actor> lowestStock = new ArrayList<>();
-				//Add all Actors that have the same and lowest stock level
 				for (Actor a : targets) {
 					if (a.storedItems.size() == lowest)
 						lowestStock.add(a);
 				}
 
-				//Fill Actors till second lowest
-				for (int i = 0; i <= numberItemsAdded; i++) {
+				//Fill Actors till the inventory level of the second lowest is reached
+				for (int i = 0; i < maxNumberItemsAdded; i++) {
 					for (Actor a : lowestStock) {
 						if (canReceiveItem(a))
 						{
@@ -96,7 +96,7 @@ public abstract class Actor
 			}
 		}
 
-	}
+	}}
 
 	private void accordingToTable()
 	{
